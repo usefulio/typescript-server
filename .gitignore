@@ -1,0 +1,8 @@
+# Compiled code
+build
+
+# Dependency directory
+node_modules
+
+# History files
+.history
