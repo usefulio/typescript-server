@@ -8,11 +8,8 @@ export class UserService {
   @InjectRepository(User)
   private readonly userRepository: Repository<User>;
 
-  @Inject("loaders")
-  private loaders;
-
   findOneById(userId: number): Promise<User> {
-    return this.loaders.user.load(userId);
+    return this.userRepository.findOne(userId);
   }
 
   findAll(): Promise<User[]> {

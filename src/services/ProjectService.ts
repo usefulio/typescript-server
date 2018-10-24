@@ -8,11 +8,8 @@ export class ProjectService {
   @InjectRepository(Project)
   private readonly projectRepository: Repository<Project>;
 
-  @Inject("loaders")
-  private loaders;
-
   findOneById(projectId: number): Promise<Project> {
-    return this.loaders.project.load(projectId);
+    return this.projectRepository.findOne(projectId);
   }
 
   findAll(): Promise<Project[]> {
