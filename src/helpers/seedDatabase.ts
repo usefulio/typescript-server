@@ -14,6 +14,7 @@ export async function seedDatabase() {
       lastName: "Jagodziński",
       email: "luke.jagodzinski@gmail.com",
       createdAt: new Date(),
+      roles: ["admin"],
     },
     {
       id: 2,
@@ -21,6 +22,7 @@ export async function seedDatabase() {
       lastName: "Jagodzińska",
       email: "monika.sedzicka@gmail.com",
       createdAt: new Date(),
+      roles: [],
     },
   ]);
   await userRepository.save(users);
@@ -28,8 +30,14 @@ export async function seedDatabase() {
   const projects = projectRepository.create([
     {
       id: 1,
-      name: "Mieszkanie",
+      name: "Łukasz Project",
       user: users[0],
+      createdAt: new Date("2018-04-11"),
+    },
+    {
+      id: 2,
+      name: "Monika Project",
+      user: users[1],
       createdAt: new Date("2018-04-11"),
     },
   ]);

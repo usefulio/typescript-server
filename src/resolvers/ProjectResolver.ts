@@ -1,9 +1,21 @@
-import { Arg, FieldResolver, Int, Query, Resolver, Root } from "type-graphql";
+import {
+  Arg,
+  Authorized,
+  Ctx,
+  FieldResolver,
+  Int,
+  Query,
+  Resolver,
+  Root,
+  UnauthorizedError,
+} from "type-graphql";
 
 import { ProjectService } from "../services/ProjectService";
 import { UserService } from "../services/UserService";
 
 import { Project } from "../types/Project";
+
+import { Context } from "../utils/Context";
 
 @Resolver(of => Project)
 export class ProjectResolver {
@@ -12,12 +24,18 @@ export class ProjectResolver {
     private readonly userService: UserService,
   ) {}
 
+  @Authorized()
   @Query(returns => Project, { nullable: true })
-  project(@Arg("id", type => Int) id: number) {
-    return this.projectService.findOneById(id);
+  async project(@Arg("id", type => Int) id: number, @Ctx() ctx: Context) {
+    const project = await this.projectService.findOneById(id);
+    if (project && project.userId !== ctx.user.id) {
+      throw new UnauthorizedError();
+    }
+    return project;
   }
 
-  @Query(returns => [Project])
+  @Authorized("admin")
+  @Query(returns => [Project], { nullable: true })
   projects(): Promise<Project[]> {
     return this.projectService.findAll();
   }

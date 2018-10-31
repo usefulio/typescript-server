@@ -1,5 +1,4 @@
 import { Repository } from "typeorm";
-import { Inject } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
 
 import { User } from "../types/User";

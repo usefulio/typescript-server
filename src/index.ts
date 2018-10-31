@@ -3,15 +3,16 @@ import { ApolloServer, gql } from "apollo-server";
 import { Container } from "typedi";
 import * as TypeGraphQL from "type-graphql";
 import * as TypeORM from "typeorm";
-import * as DataLoader from "dataloader";
-
-import { Project } from "./types/Project";
-import { User } from "./types/User";
 
 import { seedDatabase } from "./helpers/seedDatabase";
 
+import { Project } from "./types/Project";
+import { User } from "./types/User";
 import { ProjectResolver } from "./resolvers/ProjectResolver";
 import { UserResolver } from "./resolvers/UserResolver";
+
+import { authChecker } from "./utils/authChecker";
+import { createContext } from "./utils/createContext";
 
 TypeGraphQL.useContainer(Container);
 TypeORM.useContainer(Container);
@@ -39,21 +40,13 @@ const bootstrap = async function() {
 
     const schema = await TypeGraphQL.buildSchema({
       resolvers: [ProjectResolver, UserResolver],
+      authChecker,
+      // authMode: "null",
     });
 
     await seedDatabase();
 
-    const apolloServer = new ApolloServer({
-      schema,
-      // playground: {
-      //   endpoint: "playground"
-      // },
-      context: ({ req, res }) => ({}),
-      formatResponse: (response: any) => {
-        return response;
-      },
-    });
-
+    const apolloServer = new ApolloServer({ schema, context: createContext });
     await apolloServer.listen({ port: config.port });
 
     const url = `http://localhost:${config.port}${apolloServer.graphqlPath}`;

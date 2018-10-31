@@ -49,4 +49,7 @@ export class User {
 
   @Field(type => [Project])
   projects: [Project];
+
+  @Column("varchar", { array: true })
+  roles: string[];
 }

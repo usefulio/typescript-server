@@ -12,9 +12,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/jsonwebtoken": "^7.2.8",
     "apollo-server": "^2.1.0",
     "class-transformer": "^0.1.9",
     "dataloader": "^1.4.0",
+    "jsonwebtoken": "^8.3.0",
     "pg": "^7.5.0",
     "type-graphql": "^0.14.0",
     "typedi": "^0.8.0",
