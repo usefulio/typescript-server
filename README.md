@@ -1,6 +1,6 @@
 # TypeScript GraphQL Server
 
-This Startup Kit is written in TypeScript and uses Apollo Server + TypeGraphQL + TypeORM.
+This Startup Kit is written in TypeScript and uses [Apollo Server](https://www.apollographql.com/docs/apollo-server/) + [TypeGraphQL](https://19majkel94.github.io/type-graphql/) + [TypeORM](http://typeorm.io/).
 
 In Apollo GraphQL to define schema we use GraphQL Schema Language which is a nice form of defining schema separate from resolvers. In pure GraphQL JS, we define all the schema in the code. This stack uses TypeGraphQL which allows you to define schema in the code but at the same time is much more readable because it's using all the benefits of TypeScript like classes, types, interfaces, decorators etc.
 
