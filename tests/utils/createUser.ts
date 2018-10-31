@@ -2,9 +2,9 @@ import { plainToClass } from "class-transformer";
 
 import { User } from "../../src/types/User";
 
-export const createUser = () => {
+export const createUser = ({ id }: { id: number }) => {
   return plainToClass(User, {
-    id: 1,
+    id,
     firstName: "John",
     lastName: "Smith",
     email: "john.smith@gmail.com",

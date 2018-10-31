@@ -2,6 +2,7 @@ import { ProjectResolver } from "../../src/resolvers/ProjectResolver";
 
 import { Project } from "../../src/types/Project";
 import { User } from "../../src/types/User";
+import { Context } from "../../src/utils/Context";
 
 import { createProject } from "../utils/createProject";
 import { createUser } from "../utils/createUser";
@@ -10,14 +11,15 @@ import { UserServiceMock } from "../utils/UserServiceMock";
 
 describe("ProjectResolver", () => {
   it(`should resolve the "project" query with the project object`, async () => {
-    const users = [createUser()];
-    const projects = [createProject({ user: users[0] })];
+    const users = [createUser({ id: 1 })];
+    const projects = [createProject({ id: 1, user: users[0] })];
     const projectResolver = new ProjectResolver(
       new ProjectServiceMock(projects),
       new UserServiceMock(users),
     );
+    const ctx: Context = { user: { id: 1, roles: [] } };
 
-    const resolvedProject: Project = await projectResolver.project(1);
+    const resolvedProject: Project = await projectResolver.project(1, ctx);
     expect(resolvedProject).toBeInstanceOf(Project);
   });
 
@@ -28,14 +30,15 @@ describe("ProjectResolver", () => {
       new ProjectServiceMock(projects),
       new UserServiceMock(users),
     );
+    const ctx: Context = { user: { id: 1, roles: [] } };
 
-    const resolvedProject: Project = await projectResolver.project(1);
+    const resolvedProject: Project = await projectResolver.project(1, ctx);
     expect(resolvedProject).toBeUndefined();
   });
 
   it(`should resolve the "projects" query with projects list`, async () => {
-    const users = [createUser()];
-    const projects = [createProject({ user: users[0] })];
+    const users = [createUser({ id: 1 })];
+    const projects = [createProject({ id: 1, user: users[0] })];
     const projectResolver = new ProjectResolver(
       new ProjectServiceMock(projects),
       new UserServiceMock(users),
@@ -61,8 +64,8 @@ describe("ProjectResolver", () => {
   });
 
   it(`should resolve the "user" field with project's creator`, async () => {
-    const users = [createUser()];
-    const projects = [createProject({ user: users[0] })];
+    const users = [createUser({ id: 1 })];
+    const projects = [createProject({ id: 1, user: users[0] })];
     const projectResolver = new ProjectResolver(
       new ProjectServiceMock(projects),
       new UserServiceMock(users),
