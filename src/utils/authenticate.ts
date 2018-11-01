@@ -1,7 +1,7 @@
 import { verify } from "jsonwebtoken";
 
 export interface AuthPayloadInterface {
-  userId: string;
+  userId: number;
   iat: number;
   exp: number;
 }
@@ -14,7 +14,7 @@ export interface Request {
   headers: RequestHeaders;
 }
 
-export const authenticate = ({ req }: { req: Request }): string | undefined => {
+export const authenticate = ({ req }: { req: Request }): number | undefined => {
   if (req.headers.authorization) {
     const token = req.headers.authorization.slice(7);
     try {
