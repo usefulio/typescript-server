@@ -28,7 +28,6 @@ export class UserResolver {
   @Authorized()
   @Query(returns => User, { nullable: true })
   user(@Arg("id", type => Int) id: number, @Ctx() ctx: Context) {
-    console.log(ctx);
     // You can only retrieve profile data of yourself.
     if (id !== ctx.user.id) {
       throw new UnauthorizedError();
