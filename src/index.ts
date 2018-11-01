@@ -6,11 +6,6 @@ import * as TypeORM from "typeorm";
 
 import { seedDatabase } from "./helpers/seedDatabase";
 
-import { Project } from "./types/Project";
-import { User } from "./types/User";
-import { ProjectResolver } from "./resolvers/ProjectResolver";
-import { UserResolver } from "./resolvers/UserResolver";
-
 import { authChecker } from "./utils/authChecker";
 import { createContext } from "./utils/createContext";
 
@@ -30,7 +25,12 @@ const bootstrap = async function() {
       // password: "",
       port: 5432,
       host: "localhost",
-      entities: [Project, User],
+      entities: [
+        // Glob pattern used in development.
+        __dirname + "/types/*.ts",
+        // Glob pattern used in production.
+        __dirname + "/types/*.js",
+      ],
       synchronize: true,
       logger: "advanced-console",
       logging: "all",
@@ -39,7 +39,12 @@ const bootstrap = async function() {
     });
 
     const schema = await TypeGraphQL.buildSchema({
-      resolvers: [ProjectResolver, UserResolver],
+      resolvers: [
+        // Glob pattern used in development.
+        __dirname + "/resolvers/*.ts",
+        // Glob pattern used in production.
+        __dirname + "/resolvers/*.js",
+      ],
       authChecker,
       // authMode: "null",
     });
