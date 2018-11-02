@@ -6,3 +6,6 @@ node_modules
 
 # History files
 .history
+
+# The .env file
+.env
