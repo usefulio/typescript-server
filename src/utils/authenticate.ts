@@ -21,8 +21,10 @@ export const authenticate = ({ req }: { req: Request }): number | undefined => {
       const payload = verify(token, "secret") as AuthPayloadInterface;
       if (typeof payload === "object") {
         console.log("Authentication token valid");
-        const expiresOn = new Date(payload.exp * 1000);
-        console.log(`Authentication token will expire on ${expiresOn}`);
+        if (payload.exp) {
+          const expiresOn = new Date(payload.exp * 1000);
+          console.log(`Authentication token will expire on ${expiresOn}`);
+        }
         return payload.userId;
       }
     } catch (err) {
