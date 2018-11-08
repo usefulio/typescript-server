@@ -33,6 +33,7 @@ TYPEORM_LOGGING=all
 TYPEORM_ENTITIES=src/types/*.ts
 TYPEORM_DROP_SCHEMA=true # Drops schema on every reconnection
 PORT=4000
+AUTHORIZATION_SECRET=secret
 ```
 
 Next you can run project by executing command:
@@ -56,6 +57,7 @@ TYPEORM_LOGGER=simple-console
 TYPEORM_LOGGING=all
 TYPEORM_ENTITIES=build/types/*.js
 PORT=80
+AUTHORIZATION_SECRET=secret
 ```
 
 Next you have to build project by running command:

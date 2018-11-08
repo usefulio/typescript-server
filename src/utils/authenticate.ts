@@ -1,9 +1,9 @@
-import { verify } from "jsonwebtoken";
+import { verify, sign } from "jsonwebtoken";
 
 export interface AuthPayloadInterface {
   userId: number;
-  iat: number;
-  exp: number;
+  iat?: number;
+  exp?: number;
 }
 
 export interface RequestHeaders {
@@ -18,7 +18,10 @@ export const authenticate = ({ req }: { req: Request }): number | undefined => {
   if (req.headers.authorization) {
     const token = req.headers.authorization.slice(7);
     try {
-      const payload = verify(token, "secret") as AuthPayloadInterface;
+      const payload = verify(
+        token,
+        process.env.AUTHORIZATION_SECRET,
+      ) as AuthPayloadInterface;
       if (typeof payload === "object") {
         console.log("Authentication token valid");
         if (payload.exp) {
