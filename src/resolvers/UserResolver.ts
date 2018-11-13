@@ -42,7 +42,7 @@ export class UserResolver {
   }
 
   @FieldResolver()
-  projects(@Root() user: User): Promise<Project[]> {
+  projects(@Root() user: User) {
     return this.projectService.findByUserId(user.id);
   }
 }
