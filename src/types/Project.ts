@@ -1,10 +1,11 @@
 import { Field, Int, ObjectType } from "type-graphql";
 import {
   Column,
+  CreateDateColumn,
   Entity,
   ManyToOne,
   PrimaryGeneratedColumn,
-  CreateDateColumn,
+  UpdateDateColumn,
 } from "typeorm";
 
 import { User } from "./User";
@@ -23,6 +24,10 @@ export class Project {
   @Field()
   @CreateDateColumn()
   createdAt: Date;
+
+  @Field()
+  @UpdateDateColumn()
+  updatedAt: Date;
 
   @Field(type => User)
   @ManyToOne(type => User)

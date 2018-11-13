@@ -1,9 +1,10 @@
 import { Field, Int, ObjectType } from "type-graphql";
 import {
   Column,
+  CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
-  CreateDateColumn,
+  UpdateDateColumn,
 } from "typeorm";
 
 import { Project } from "./Project";
@@ -34,6 +35,10 @@ export class User {
   @Field()
   @CreateDateColumn()
   createdAt: Date;
+
+  @Field()
+  @UpdateDateColumn()
+  updatedAt: Date;
 
   @Field(type => String)
   fullName() {
