@@ -27,7 +27,7 @@ export class ProjectResolver {
   @Authorized()
   @Query(returns => Project, {
     nullable: true,
-    description: "Return project details by its ID",
+    description: "Return project details by ID",
   })
   async project(@Arg("id", type => Int) id: number, @Ctx() ctx: Context) {
     const project = await this.projectService.findOneById(id);
@@ -46,9 +46,7 @@ export class ProjectResolver {
     return this.projectService.findByUserId(ctx.user.id);
   }
 
-  @FieldResolver({
-    description: "Return owner of the project",
-  })
+  @FieldResolver({ description: "Return owner of the project" })
   user(@Root() project: Project) {
     return this.userService.findOneById(project.userId);
   }
