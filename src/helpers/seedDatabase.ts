@@ -30,15 +30,21 @@ export async function seedDatabase() {
   const projects = projectRepository.create([
     {
       id: 1,
-      name: "Łukasz Project",
+      name: "First Project",
       user: users[0],
-      createdAt: new Date("2018-04-11"),
+      createdAt: new Date("2018-01-01"),
     },
     {
       id: 2,
-      name: "Monika Project",
+      name: "Second Project",
+      user: users[0],
+      createdAt: new Date("2018-01-02"),
+    },
+    {
+      id: 3,
+      name: "My First Project",
       user: users[1],
-      createdAt: new Date("2018-04-11"),
+      createdAt: new Date("2018-01-01"),
     },
   ]);
   await projectRepository.save(projects);

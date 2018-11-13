@@ -25,7 +25,10 @@ export class ProjectResolver {
   ) {}
 
   @Authorized()
-  @Query(returns => Project, { nullable: true })
+  @Query(returns => Project, {
+    nullable: true,
+    description: "Return project details by its ID",
+  })
   async project(@Arg("id", type => Int) id: number, @Ctx() ctx: Context) {
     const project = await this.projectService.findOneById(id);
     if (project && project.userId !== ctx.user.id) {
@@ -34,13 +37,18 @@ export class ProjectResolver {
     return project;
   }
 
-  @Authorized("admin")
-  @Query(returns => [Project], { nullable: true })
-  projects(): Promise<Project[]> {
-    return this.projectService.findAll();
+  @Authorized()
+  @Query(returns => [Project], {
+    nullable: true,
+    description: "Return list of projects for a signed in user",
+  })
+  projects(@Ctx() ctx: Context): Promise<Project[]> {
+    return this.projectService.findByUserId(ctx.user.id);
   }
 
-  @FieldResolver()
+  @FieldResolver({
+    description: "Return owner of the project",
+  })
   user(@Root() project: Project) {
     return this.userService.findOneById(project.userId);
   }
