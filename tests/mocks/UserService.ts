@@ -1,9 +1,7 @@
-import { plainToClass } from "class-transformer";
-
 import { User } from "../../src/types/User";
-import { UserService } from "../../src/services/UserService";
+import { UserService as UserServiceParent } from "../../src/services/UserService";
 
-export class UserServiceMock extends UserService {
+export class UserService extends UserServiceParent {
   constructor(private readonly users: User[]) {
     super();
   }

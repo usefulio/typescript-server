@@ -6,16 +6,16 @@ import { Context } from "../../src/utils/Context";
 
 import { createProject } from "../utils/createProject";
 import { createUser } from "../utils/createUser";
-import { ProjectServiceMock } from "../utils/ProjectServiceMock";
-import { UserServiceMock } from "../utils/UserServiceMock";
+import { ProjectService } from "../mocks/ProjectService";
+import { UserService } from "../mocks/UserService";
 
 describe("UserResolver", () => {
   it(`should resolve the "user" query with the user object`, async () => {
     const users = [createUser()];
     const projects = [createProject({ user: users[0] })];
     const userResolver = new UserResolver(
-      new ProjectServiceMock(projects),
-      new UserServiceMock(users),
+      new ProjectService(projects),
+      new UserService(users),
     );
     const ctx: Context = { user: { id: users[0].id, roles: [] } };
 
@@ -28,8 +28,8 @@ describe("UserResolver", () => {
     const users = [];
     const projects = [];
     const userResolver = new UserResolver(
-      new ProjectServiceMock(projects),
-      new UserServiceMock(users),
+      new ProjectService(projects),
+      new UserService(users),
     );
     const ctx: Context = { user: { id: 1, roles: [] } };
 
@@ -41,8 +41,8 @@ describe("UserResolver", () => {
     const users = [createUser()];
     const projects = [createProject({ user: users[0] })];
     const userResolver = new UserResolver(
-      new ProjectServiceMock(projects),
-      new UserServiceMock(users),
+      new ProjectService(projects),
+      new UserService(users),
     );
 
     const resolvedUsers = await userResolver.users();
@@ -56,8 +56,8 @@ describe("UserResolver", () => {
     const users = [];
     const projects = [];
     const userResolver = new UserResolver(
-      new ProjectServiceMock(projects),
-      new UserServiceMock(users),
+      new ProjectService(projects),
+      new UserService(users),
     );
 
     const resolvedUsers = await userResolver.users();
@@ -73,8 +73,8 @@ describe("UserResolver", () => {
       createProject({ user: users[1] }),
     ];
     const userResolver = new UserResolver(
-      new ProjectServiceMock(projects),
-      new UserServiceMock(users),
+      new ProjectService(projects),
+      new UserService(users),
     );
 
     const resolvedProjects = await userResolver.projects(users[0]);
@@ -89,8 +89,8 @@ describe("UserResolver", () => {
     const users = [createUser()];
     const projects = [];
     const userResolver = new UserResolver(
-      new ProjectServiceMock(projects),
-      new UserServiceMock(users),
+      new ProjectService(projects),
+      new UserService(users),
     );
 
     const resolvedProjects = await userResolver.projects(users[0]);

@@ -1,9 +1,7 @@
-import { plainToClass } from "class-transformer";
-
 import { Project } from "../../src/types/Project";
-import { ProjectService } from "../../src/services/ProjectService";
+import { ProjectService as ProjectServiceParent } from "../../src/services/ProjectService";
 
-export class ProjectServiceMock extends ProjectService {
+export class ProjectService extends ProjectServiceParent {
   constructor(private readonly projects: Project[]) {
     super();
   }
