@@ -5,18 +5,17 @@ import { User } from "../../src/types/User";
 
 let nextId = 1;
 
-export const createProject = ({
-  id,
-  user,
-}: {
+interface ProjectInterface {
   id?: number;
-  user: User;
-}): Project => {
+  user?: User;
+}
+
+export const createProject = (project?: ProjectInterface): Project => {
   return plainToClass(Project, {
-    id: id || nextId++,
+    id: (project && project.id) || nextId++,
     name: "Sample Project",
     createdAt: new Date(),
-    user,
-    userId: user.id,
+    user: project && project.user,
+    userId: project && project.user && project.user.id,
   });
 };

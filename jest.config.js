@@ -5,7 +5,6 @@ module.exports = {
   },
   testMatch: ["**/resolvers/**/*.ts"],
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
-  rootDir: "./tests",
-  // roots: ["<rootDir>/tests"],
+  roots: ["<rootDir>/tests"],
   testEnvironment: "node",
 };

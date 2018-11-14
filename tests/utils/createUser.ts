@@ -4,9 +4,13 @@ import { User } from "../../src/types/User";
 
 let nextId = 1;
 
-export const createUser = ({ id }: { id?: number }) => {
+interface UserInterface {
+  id?: number;
+}
+
+export const createUser = (user?: UserInterface) => {
   return plainToClass(User, {
-    id: id || nextId++,
+    id: (user && user.id) || nextId++,
     firstName: "John",
     lastName: "Smith",
     email: "john.smith@gmail.com",
