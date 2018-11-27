@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { ApolloServer, gql } from "apollo-server";
+import { ApolloServer } from "apollo-server";
 import { Container } from "typedi";
 import * as TypeGraphQL from "type-graphql";
 import * as TypeORM from "typeorm";
@@ -25,6 +25,7 @@ const bootstrap = async function() {
       ],
       authChecker,
       // authMode: "null",
+      emitSchemaFile: true,
     });
 
     await seedDatabase();
