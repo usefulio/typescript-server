@@ -1,3 +1,6 @@
+import * as bcryptjs from "bcryptjs";
+import sha256 from "../utils/sha256";
+
 import { getRepository } from "typeorm";
 
 import { Project } from "../types/Project";
@@ -7,12 +10,15 @@ export async function seedDatabase() {
   const projectRepository = getRepository(Project);
   const userRepository = getRepository(User);
 
+  const password = await bcryptjs.hash(sha256("password"), 10);
+
   const users = userRepository.create([
     {
       id: 1,
       firstName: "Łukasz",
       lastName: "Jagodziński",
       email: "luke.jagodzinski@gmail.com",
+      password,
       roles: ["admin"],
     },
     {
@@ -20,6 +26,7 @@ export async function seedDatabase() {
       firstName: "Monika",
       lastName: "Jagodzińska",
       email: "monika.sedzicka@gmail.com",
+      password,
       roles: [],
     },
   ]);
